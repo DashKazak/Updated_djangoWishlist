@@ -1,20 +1,22 @@
+{% extends 'travel_wishlist/base.html' %}
+{% block content %}
 <h2>Travel Wishlist</h2>
 <!-- %'place_list'% url reversing -->
-<form method="POST" action="% url 'place_list' %">
+<form method="POST" action="{% url 'place_list' %}">
     {% csrf_token %}
     {{ new_place_form}}
-    <button type = "submit">Add</button>
+    <button id="add-new-place" type = "submit">Add</button>
 </form>
 
 {% for place in places %}
 
-<div>
-    {{ place.name }}
+<div class="wishlist-place">
+    <span id = "place-name={{place.pk}}" class="place-name">{{ place.name }}</span>
 
 <!-- url reversing -->
-    <form method="POST" action="{% url 'place_was_visited' place.pk %}">
+    <form class="visited-form" method="POST" action="{% url 'place_was_visited' place.pk %}">
         {% csrf_token %}
-        <button>Visited!</button>
+        <button id = "visited-button-{{place.pk}}">Visited!</button>
     <!-- to make a browser generate request to a server we need to make a form element -->
     </form>
     
@@ -25,5 +27,5 @@
 <p> You have no places in your wishlist</p>
 
 {%endfor%}
+{% endblock %}
 
-<a href = "{% url 'places_visited' %}">Places you have visited</a>

@@ -25,9 +25,6 @@ def about(request):
     about = 'My first Django project: list of place I have visited and want to visit'
     return render(request,'travel_wishlist/about.html',{'author': author, 'about':about} )
 
-def places_visited(request):
-    visited=Place.objects.filter(visited=True)
-    return render(request,'travel_wishlist/visited.html', {'visited':visited})
 
 def place_was_visited(request,place_pk):
     if request.method == 'POST':
@@ -36,3 +33,8 @@ def place_was_visited(request,place_pk):
         place.save()
 
         return redirect('place_list')
+
+
+def places_visited(request):
+    visited=Place.objects.filter(visited=True)
+    return render(request,'travel_wishlist/visited.html', {'visited':visited})
