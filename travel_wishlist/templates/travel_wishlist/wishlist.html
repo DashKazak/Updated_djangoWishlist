@@ -11,9 +11,12 @@
 {% for place in places %}
 
 <div class="wishlist-place">
-    <span id = "place-name={{place.pk}}" class="place-name">{{ place.name }}</span>
 
-<!-- url reversing -->
+    <span id = "place-name-{{place.pk}}" class="place-name">
+        <a href="{% url 'place_details' place.pk %}">{{ place.name }}</a>
+    </span>
+
+    <!-- url reversing -->
     <form class="visited-form" method="POST" action="{% url 'place_was_visited' place.pk %}">
         {% csrf_token %}
         <button id = "visited-button-{{place.pk}}">Visited!</button>
@@ -26,6 +29,6 @@
 
 <p> You have no places in your wishlist</p>
 
-{%endfor%}
+{% endfor %}
 {% endblock %}
 
